@@ -1,8 +1,6 @@
 import imaplib
 import email
-import csv
 from bs4 import BeautifulSoup
-
 
 def get_amazon_otp(email_address, password):
     otp_found = False
@@ -62,20 +60,7 @@ def get_amazon_otp(email_address, password):
     if not otp_found:
         print("Dont have OTP. Try check it again.")
 
-
-def main():
-    identifier = input("Enter the Name or email address you want to check: ")
-
-    with open('mailaccount.csv', 'r') as file:
-        reader = csv.reader(file)
-        for row in reader:
-            name, email_address, password = row
-            if name == identifier or email_address == identifier:
-                get_amazon_otp(email_address, password)
-                break
-        else:
-            print("Name or email address not found in the CSV file.")
-
-
 if __name__ == "__main__":
-    main()
+    user_input = input("Enter your email address and password in the format emailaddress|password: ")
+    email_address, password = user_input.split('|')
+    get_amazon_otp(email_address, password)
